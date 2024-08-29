@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: customers
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: email
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              values: ['[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$']  # Regular expression to validate email format
+      - name: phone
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['^[0-9\-()+]+$']
+
+  - name: total_sales_per_customer
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: total_sales
+        tests:
+          - not_null
+          - expression_is_true:
+              expression: total_sales >= 0  # Ensure that total sales are non-negative

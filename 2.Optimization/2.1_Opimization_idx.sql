@@ -1,0 +1,1 @@
+CREATE INDEX idx_order_details_orderpro_id ON Order_Details(product_id); 
